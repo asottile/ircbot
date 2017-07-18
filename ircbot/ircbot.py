@@ -22,7 +22,7 @@ from ircbot.plugin import create
 from ircbot.plugin import debian_security
 from ircbot.plugin import rackspace_monitoring
 
-IRC_HOST = 'irc'
+IRC_HOST = 'irc.ocf.berkeley.edu'
 IRC_PORT = 6697
 
 user = getpass.getuser()
@@ -348,23 +348,24 @@ def main():
     bot_thread.start()
 
     # celery thread
-    celery_thread = threading.Thread(
-        target=create.celery_listener,
-        args=(bot, celery, conf.get('celery', 'broker')),
-        daemon=True,
-    )
-    celery_thread.start()
+    #celery_thread = threading.Thread(
+    #    target=create.celery_listener,
+    #    args=(bot, celery, conf.get('celery', 'broker')),
+    #    daemon=True,
+    #)
+    #celery_thread.start()
 
     # timer thread
-    timer_thread = threading.Thread(
-        target=timer,
-        args=(bot,),
-        daemon=True,
-    )
-    timer_thread.start()
+    #timer_thread = threading.Thread(
+    #    target=timer,
+    #    args=(bot,),
+    #    daemon=True,
+    #)
+    #timer_thread.start()
 
     while True:
-        for thread in (bot_thread, celery_thread, timer_thread):
+        #for thread in (bot_thread, celery_thread, timer_thread):
+        for thread in (bot_thread,):
             if not thread.is_alive():
                 raise RuntimeError('Thread exited: {}'.format(thread))
 
